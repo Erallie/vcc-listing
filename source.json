@@ -1,13 +1,13 @@
 {
     "name": "Erallie's VCC Packages",
     "id": "com.erallie.vcc-listing",
-    "url": "https://erallie.github.io/vcc-listing/index.json",
+    "url": "https://vcc.gozarproductions.com/index.json",
     "author": {
         "name": "Erallie",
         "email": "erika@gozarproductions.com",
         "url": "https://gozarproductions.com"
     },
-    "description": "VRChat Creator Companion packages by Erallie.",
+    "description": "VRChat world and avatar tools and packages created by Erallie, under Gozar Productions.",
     "infoLink": {
         "url": "https://github.com/Erallie/vcc-listing",
         "text": "View on GitHub"
