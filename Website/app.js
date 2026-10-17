@@ -102,35 +102,43 @@ const setTheme = () => {
   });
 
   const rowMoreMenu = document.getElementById('rowMoreMenu');
-  const hideRowMoreMenu = e => {
-    if (rowMoreMenu.contains(e.target)) return;
-    document.removeEventListener('click', hideRowMoreMenu);
-    rowMoreMenu.hidden = true;
-  }
 
-  const rowMenuButtons = document.querySelectorAll('.rowMenuButton');
-  rowMenuButtons.forEach(button => {
-    button.addEventListener('click', e => {
-      if (rowMoreMenu?.hidden) {
-        rowMoreMenu.style.top = `${e.clientY + e.target.clientHeight}px`;
-        rowMoreMenu.style.left = `${e.clientX - 120}px`;
-        rowMoreMenu.hidden = false;
+    const hideRowMoreMenu = e => {
+        if (rowMoreMenu.contains(e.target)) return;
 
-        const downloadLink = rowMoreMenu.querySelector('#rowMoreMenuDownload');
-        const downloadListener = () => {
-          window.open(e?.target?.dataset?.packageUrl, '_blank');
-        }
-        downloadLink.addEventListener('change', () => {
-          downloadListener();
-          downloadLink.removeEventListener('change', downloadListener);
+        document.removeEventListener('click', hideRowMoreMenu);
+        rowMoreMenu.hidden = true;
+    };
+
+    const rowMenuButtons = document.querySelectorAll('.rowMenuButton');
+
+    rowMenuButtons.forEach(button => {
+        button.addEventListener('click', e => {
+            e.stopPropagation();
+
+            if (rowMoreMenu?.hidden) {
+                const rect = button.getBoundingClientRect();
+
+                rowMoreMenu.style.top = `${rect.bottom}px`;
+                rowMoreMenu.style.left = `${rect.right - 120}px`;
+
+                rowMoreMenu.hidden = false;
+
+                const downloadLink = rowMoreMenu.querySelector('#rowMoreMenuDownload');
+                const packageUrl = button.dataset.packageUrl;
+
+                const downloadListener = () => {
+                    window.open(packageUrl, '_blank');
+                };
+
+                downloadLink.addEventListener('change', downloadListener, { once: true });
+
+                setTimeout(() => {
+                    document.addEventListener('click', hideRowMoreMenu);
+                }, 1);
+            }
         });
-
-        setTimeout(() => {
-          document.addEventListener('click', hideRowMoreMenu);
-        }, 1);
-      }
     });
-  });
 
   const packageInfoModal = document.getElementById('packageInfoModal');
   const packageInfoModalClose = document.getElementById('packageInfoModalClose');
