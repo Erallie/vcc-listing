@@ -497,17 +497,11 @@ h1 {
 
   /* Dialogs */
 
-  /* Keep the actual Fluent dialog box inside the mobile viewport */
-  #addListingToVccHelp::part(control) {
-    width: calc(100vw - 1rem);
-    max-width: calc(100vw - 1rem);
-    max-height: calc(100dvh - 2rem);
-    overflow: hidden;
-  }
-
-    /* Scroll the dialog contents inside that box */
   #addListingToVccHelp > .col {
-    max-height: calc(100dvh - 2rem);
+    width: calc(100vw - 2rem);
+    max-width: 100%;
+    height: calc(100dvh - 4rem);
+    max-height: calc(100dvh - 4rem);
     overflow-y: auto;
     overflow-x: hidden;
     padding-bottom: 1rem;
