@@ -12,6 +12,7 @@
         "url": "https://github.com/Erallie/vcc-listing",
         "text": "View on GitHub"
     },
+    "bannerUrl": "banner.png",
     "githubRepos": [
         "Erallie/stage-amplifier-and-whitelist"
     ]
