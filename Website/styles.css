@@ -499,10 +499,7 @@ h1 {
 
   fluent-dialog {
     max-width: calc(100vw - 1rem);
-  }
-
-  #addListingToVccHelp {
-    max-height: calc(100dvh - 2rem);
+    max-height: calc(100vh - 1rem);
     overflow-y: auto;
     padding-bottom: 1rem;
   }
