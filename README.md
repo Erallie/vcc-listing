@@ -1,43 +1,89 @@
-# VPM Package Listing Template
+# Erallie's VCC Packages
 
-Starter for making your own Package Listings, including automation for building and publishing them.
+Central VCC repository listing for VRChat world packages by Erallie.
+This is a static listing website, not a Unity project. Package source code
+and release ZIPs stay in their respective project repositories.
 
-Once you're all set up, you'll be able to update the [`source.json`](source.json) file, and generate a listing which works in the VPM for delivering updates for all the listed packages.
+## Publish this repository
 
-## ▶ Getting Started
+1. Move this entire folder, including its hidden `.git` directory, to:
+   `G:\Projects\VRChat\Unity_Projects\vcc-listing`.
+2. Create a public, empty GitHub repository named `vcc-listing` under Erallie.
+   Do not initialize another README or license on GitHub.
+3. Commit the customized files locally, add the new remote, and push:
 
-* Press [![Use This Template](https://user-images.githubusercontent.com/737888/185467681-e5fdb099-d99f-454b-8d9e-0760e5a6e588.png)](https://github.com/vrchat-community/template-package-listing/generate)
-to start a new GitHub project based on this template, and follow the directions there. 
-  * Choose a fitting repository name and description.
-  * Set the visibility to 'Public'. You can also choose 'Private' and change it later.
-  * You don't need to select 'Include all branches.'
-* Edit this project on GitHub in your web browser, or clone it repository locally using Git.
-  * If you're unfamiliar with Git and GitHub, [visit GitHub's documentation](https://docs.github.com/en/get-started/quickstart/).
-  
-## Setting up the Automation
+```powershell
+git add .
+git commit -m "Configure Erallie's central VCC listing"
+git remote add origin https://github.com/Erallie/vcc-listing.git
+git push -u origin main
+```
 
-You'll need to edit some of the files in this template, starting with [`source.json`](source.json):
-- Fill out general information about your listing, such as the [`name`](source.json#L2), [`id`](source.json#L3), [`author`](source.json#L5), [`description`](source.json#L10), etc.
-- Make sure to update the ["url"](source.json#L4) field on line 4, replacing "vrchat-community" with your GitHub username, and "template-package-listing" with your repo name. This is the link that will be used to download your listing once it's published by GitHub. For example, the user "thupper" who made a repo called "thupper-listing" would update the url to "https://thupper.github.io/thupper-listing/index.json".
-- Update the "url" within ["infoLink"](source.json#L11) (on line 11) with the url of this new repo you've created.
-- If you'd like to include packages hosted on GitHub, specify them in [`githubRepos`](source.json#L16).
-- If you'd like to include packages hosted elsewhere as a `.zip` file, specify them in [`packages`](source.json#L19).
-  - You can safely remove either [`githubRepos`](source.json#L16) or [`packages`](source.json#L19) if you're not using them. 
-- Finally, go to the "Settings" page for your repo, then choose "Pages", and look for the heading "Build and deployment". Change the "Source" dropdown from "Deploy from a branch" to "GitHub Actions".
+4. In the GitHub repository, open **Settings > Pages** and set the build
+   source to **GitHub Actions**.
+5. Open **Actions > Build Repo Listing > Run workflow** and select `main`.
+   If an initial push run happened before Pages setup and failed, run it again.
 
-## 📃 Rebuilding the Listing
+The existing clone retains the official template's history and an `upstream`
+remote. It has no `origin` remote until you connect your own repository.
+Nothing has been pushed or published by this local setup.
 
-Whenever you make a change to the `main` branch, or when you trigger it manually, the 'Build Repo Listing' action will make a new index of all the releases available and publish them as a website hosted fore free on GitHub Pages. This listing can be used by the VPM to keep your package up to date, and the generated index page can serve as a simple landing page with info for your package. The URL for your package will be in the format https://username.github.io/repo-name.
+## Public addresses after deployment
 
-## 🏠 Customizing the Landing Page
+- Website: https://erallie.github.io/vcc-listing/
+- VCC listing JSON: https://erallie.github.io/vcc-listing/index.json
+- Add to VCC:
+  `vcc://vpm/addRepo?url=https%3A%2F%2Ferallie.github.io%2Fvcc-listing%2Findex.json`
 
-The contents of the `Website` directory can be customized to change the appearance of the landing page. Most of the information will be automatically filled in with information from [`source.json`](source.json). Customizing the landing page by hand is not required.
+The listing ID is `com.erallie.vcc-listing`. It is separate from package IDs
+and from the existing Stage Amplifier project's listing. Existing subscribers
+must add this new listing separately; this setup does not migrate them.
 
-## Technical Stuff
+## Included packages
 
-You are welcome to make your own changes to the automation process to make it fit your needs, and you can create Pull Requests if you have some changes you think we should adopt. Here's some more info on the included automation:
+The current `source.json` scans release ZIPs from:
 
-### Build Listing
-[build-listing.yml](.github/workflows/build-listing.yml)
+- `Erallie/stage-amplifier-and-whitelist`
 
-This is a composite action which builds a vpm-compatible [Repo Listing](https://vcc.docs.vrchat.com/vpm/repos) based on the items you've added to your [`source.json`](source.json) file. you've created. In order to find all your releases and combine them into a listing, it checks out [another repository](https://github.com/vrchat-community/package-list-action) which has a [Nuke](https://nuke.build/) project which includes the VPM core lib to have access to its types and methods. This project will be expanded to include more functionality in the future - for now, the action just calls its `BuildRepoListing` target, which calls `RebuildHomePage` when it completes. If you wanted to make an action that just rebuilds the home page, you could call that directly instead - just copy the existing call and replace the target names.
+That repository currently publishes both `com.erallie.stage-amplifier` and
+`com.erallie.minimal-amplifier`, so both can appear without copying their source
+into this repository.
+
+When Minimal Amplifier has its own GitHub repository with published package
+release ZIPs, add that repository to `githubRepos` too. Do not add a repository
+that does not exist or has no package releases yet.
+
+Each release ZIP must contain its package's `package.json` at the ZIP root.
+VCC package identity comes from the manifest's `name`, not the GitHub repo name.
+
+## Refresh the listing
+
+After publishing a package release in another repository, run this repository's
+**Build Repo Listing** workflow. Release events in another repository do not
+trigger this workflow automatically. No scheduled polling is configured.
+
+Pushes to `source.json`, `Website/`, or the listing workflow on `main` rebuild
+the site automatically. A `repository_dispatch` event named `packages-updated`
+is also supported for future integration; sending it from another repository
+requires separately configured authorization and is not set up here.
+
+## Customize
+
+- `source.json`: listing name, ID, canonical URL, author, and package sources.
+- `Website/index.html`: layout and social metadata.
+- `Website/styles.css`: appearance.
+- `Website/app.js`: Add to VCC and other page interactions.
+
+The page uses the official VRChat listing template. The template's placeholder
+banner and favicon files are retained. No banner is enabled in `source.json`:
+a central listing should not reuse one individual project's banner by default.
+To enable a banner, replace `Website/banner.png` and add a top-level
+`"bannerUrl": "banner.png"` property to `source.json`.
+
+## Template credit
+
+Based on the official VRChat Community
+[VPM Package Listing Template](https://github.com/vrchat-community/template-package-listing),
+using [package-list-action](https://github.com/vrchat-community/package-list-action).
+Individual packages retain their own licenses. This listing does not relicense
+third-party template files or any listed package.
