@@ -9,7 +9,7 @@
 body {
   padding: 0;
   margin: 0;
-  min-width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -353,4 +353,196 @@ h1 {
 
 .flex-1 {
   flex: 1;
+}
+
+/* =========================
+   Mobile / Responsive Styles
+   ========================= */
+
+@media (max-width: 700px) {
+  body {
+    min-width: 0;
+    width: 100%;
+    min-height: 100vh;
+    align-items: flex-start;
+    overflow-x: hidden;
+  }
+
+  .content {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75rem;
+  }
+
+  /* Header / listing information */
+
+  #listingInfo {
+    text-align: center;
+  }
+
+  #listingInfo h1 {
+    font-size: 1.6rem;
+    overflow-wrap: anywhere;
+  }
+
+  #listingInfo .caption1 {
+    overflow-wrap: anywhere;
+  }
+
+  .bannerImage {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* Add-to-VCC repository controls */
+
+  .addToVccBlock {
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .addToVccBlock .vccUrlField {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+
+  .addToVccBlock .ms-2 {
+    margin-left: 0;
+  }
+
+  /* Search */
+
+  .searchBlock {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #searchInput {
+    width: 100%;
+  }
+
+  /* Package list */
+
+  .packages {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    overflow: hidden;
+  }
+
+  #packageGrid {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /*
+   * Convert each desktop grid row into a mobile card.
+   * The column header isn't useful on mobile, so hide it.
+   */
+
+  #packageGrid fluent-data-grid-row[row-type="header"] {
+    display: none;
+  }
+
+  #packageGrid fluent-data-grid-row:not([row-type="header"]) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--neutral-stroke-divider-rest);
+  }
+
+  #packageGrid fluent-data-grid-cell {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Package name / description */
+
+  #packageGrid fluent-data-grid-cell[grid-column="1"] {
+    padding-bottom: 0.5rem;
+  }
+
+  #packageGrid .packageName,
+  #packageGrid .caption1,
+  #packageGrid .caption2 {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* Package type */
+
+  #packageGrid fluent-data-grid-cell[grid-column="2"] {
+    padding-top: 0;
+    padding-bottom: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  /* Package buttons */
+
+  #packageGrid fluent-data-grid-cell[grid-column="3"] {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  #packageGrid fluent-data-grid-cell[grid-column="3"] .ms-2 {
+    margin-left: 0;
+  }
+
+  /* Dialogs */
+
+  fluent-dialog {
+    max-width: calc(100vw - 1rem);
+    max-height: calc(100vh - 1rem);
+    overflow-y: auto;
+  }
+
+  fluent-dialog .ps-4 {
+    padding-left: 0.75rem;
+  }
+
+  fluent-dialog .pe-4 {
+    padding-right: 0.75rem;
+  }
+
+  fluent-dialog h3 {
+    font-size: 1.2rem;
+  }
+
+  fluent-dialog .row {
+    max-width: 100%;
+  }
+
+  fluent-dialog .vccUrlField {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /*
+   * URL rows inside dialogs need to wrap so the
+   * Copy/Help buttons don't push them off-screen.
+   */
+
+  #addListingToVccHelp .row:has(.vccUrlField),
+  #packageInfoModal .row:has(.vccUrlField) {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  #addListingToVccHelp .row:has(.vccUrlField) .vccUrlField,
+  #packageInfoModal .row:has(.vccUrlField) .vccUrlField {
+    flex-basis: 100%;
+  }
+
+  #addListingToVccHelp .row:has(.vccUrlField) .ms-2,
+  #packageInfoModal .row:has(.vccUrlField) .ms-2 {
+    margin-left: 0;
+  }
 }
