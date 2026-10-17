@@ -497,14 +497,11 @@ h1 {
 
   /* Dialogs */
 
-  #addListingToVccHelp {
-    width: calc(100vw - 1rem);
+  fluent-dialog {
     max-width: calc(100vw - 1rem);
-    max-height: calc(100dvh - 2rem);
-    overflow: hidden;
   }
 
-  #addListingToVccHelp > .col {
+  #addListingToVccHelp {
     max-height: calc(100dvh - 2rem);
     overflow-y: auto;
     padding-bottom: 1rem;
