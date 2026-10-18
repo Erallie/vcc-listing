@@ -7,7 +7,7 @@ and release ZIPs stay in their respective project repositories.
 ## Packages
 
 This listing features the following packages:
-- [Stage Amplifier and Whitelist](https://github.com/Erallie/stage-amplifier-and-whitelist): Provides a system with a voice amplifier and whitelist for VRChat worlds that is easy on the ears, doesn't get too loud, and can still be heard well globally.
+- [Stage Amplifier and Whitelist](https://github.com/Erallie/stage-amplifier-and-whitelist): A system with a voice amplifier and whitelist for VRChat worlds that is easy on the ears, doesn't get too loud, and can still be heard well globally. Can integrate with ProTV's whitelist.
 - [Minimal Amplifier](https://github.com/Erallie/stage-amplifier-and-whitelist): A Minimal Amplifier for VRChat worlds that is easy on the ears, doesn't get too loud, and can still be heard well globally.
 - [Dolly Importer](https://github.com/Erallie/dolly-importer): An automatic dolly importer for your VRChat worlds.
 
